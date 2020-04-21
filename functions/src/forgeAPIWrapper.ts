@@ -27,7 +27,7 @@ export class forgeAPIWrapper {
         const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
         // scopes need to be URI encoded
         // const scope = encodeURI(`data:read account:read`)
-        const scope = ['data:read account:read']
+        const scope = 'data:read account:read data:create'
         
         try {
             const forgeResponse = await axios({
@@ -90,6 +90,27 @@ export class forgeAPIWrapper {
             
         } catch (error) {
             throw error    
+        }
+    }
+
+    getProjectTopFolder = (hubId: string) => async (projectId: string) => {
+        try {
+            const t = await this.getToken()
+            const token = t.access_token;
+            const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs/${hubId}/projects/${projectId}/topFolders`
+            
+            const response = await axios({
+                method: 'get',
+                url,
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                    'Accept': '*/*'
+                }
+            })
+            
+            return response.data
+        } catch (error) {
+            throw error
         }
     }
     

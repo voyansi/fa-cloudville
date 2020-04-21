@@ -67,3 +67,18 @@ export const getProjects = functions.https.onRequest(async(reqest, response ) =>
         response.send(error)
     }
 })
+
+export const getTopFolder = functions.https.onRequest(async (request, response) => {
+    try {
+        const fAPI = forgeAPIWrapper.getInstance()
+        const hubs = await fAPI.getHubs()
+        const hubId = hubs.data[0].id
+        const projects = await fAPI.getProjects(hubId)
+        const projectId = projects.data[0].id
+        const projectTopFolder = await fAPI.getProjectTopFolder(hubId)(projectId)
+        response.send(projectTopFolder)
+    } catch (error) {
+        response.send(error)
+    }
+    
+})
