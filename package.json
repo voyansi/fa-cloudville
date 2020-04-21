@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/jest": "^25.2.1",
     "axios": "^0.19.2",
+    "buefy": "^0.8.15",
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "forge-apis": "^0.7.3",

@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 // import * as querystring from 'querystring';
 // import axios from 'axios'
 // import { twolegAuthResponse } from './forgeInterfaces';
-import { forgeAPIWrapper } from './forgeAPIWrapper';
+import { forgeAPIWrapper } from '../../forge/forgeAPIWrapper';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -10,34 +10,6 @@ import { forgeAPIWrapper } from './forgeAPIWrapper';
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
-
-// const getToken = async ():Promise<twolegAuthResponse> => {
-//     const client_id = functions.config().forgeapi.client_id
-//     const client_secret = functions.config().forgeapi.client_secret
-//     const url = `https://developer.api.autodesk.com/authentication/v1/authenticate`
-//     const scopes = encodeURI(`data:read account:read`)
-//     try {
-//         const forgeResponse = await axios({
-//                 method: 'post',
-//                 url,
-//                 data: querystring.stringify({
-//                     client_id,
-//                     client_secret,
-//                     'grant_type': 'client_credentials',
-//                     scopes,
-
-//                 }),
-//                 headers: {
-//                     'Content-Type': 'application/x-www-form-urlencoded'
-//                 }
-//             })
-//         return (forgeResponse.data)
-
-//     } catch (error) {
-//         throw error
-//     }
-// }
-
 
 export const fetchToken = functions.https.onRequest(async (request, response) => {
     try {
