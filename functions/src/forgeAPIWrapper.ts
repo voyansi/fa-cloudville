@@ -1,4 +1,4 @@
-import { twolegAuthResponse } from "./forgeInterfaces"
+import { twolegAuthResponse, hubsResponse } from "./forgeInterfaces"
 import * as functions from 'firebase-functions'
 import axios from 'axios'
 import * as querystring from 'querystring'
@@ -51,13 +51,11 @@ export class forgeAPIWrapper {
         }
     }
 
-    getHubs = async () => {
+    getHubs = async (): Promise<hubsResponse> => {
         try {
             const t = await this.getToken()
             const token = t.access_token;
             const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs`
-            console.log(token)
-            
             const response = await axios({
                 method: 'get',
                 url,
@@ -72,4 +70,27 @@ export class forgeAPIWrapper {
             throw error
         }
     }
+
+    getProjects = async (hubId: string) => {
+        try {
+            const t = await this.getToken()
+            const token = t.access_token;
+            const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs/${hubId}/projects`
+
+            const response = await axios({
+                method: 'get',
+                url,
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                    'Accept': '*/*'
+                }
+            })
+            
+            return response.data
+            
+        } catch (error) {
+            throw error    
+        }
+    }
+    
 }

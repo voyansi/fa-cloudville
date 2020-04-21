@@ -56,3 +56,14 @@ export const getHubs = functions.https.onRequest(async(reqest, response ) => {
         response.send(error)
     }
 })
+
+export const getProjects = functions.https.onRequest(async(reqest, response ) => {
+    try {
+        const hubs = await forgeAPIWrapper.getInstance().getHubs()
+        const hubId = hubs.data[0].id
+        const projects = await forgeAPIWrapper.getInstance().getProjects(hubId)
+        response.send(projects)
+    } catch (error) {
+        response.send(error)
+    }
+})
