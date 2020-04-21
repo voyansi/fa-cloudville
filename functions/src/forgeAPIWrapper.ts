@@ -27,7 +27,7 @@ export class forgeAPIWrapper {
         const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
         // scopes need to be URI encoded
         // const scope = encodeURI(`data:read account:read`)
-        const scope = 'data:read account:read data:create'
+        const scope = 'data:read account:read data:create data:write viewables:read'
         
         try {
             const forgeResponse = await axios({
@@ -114,4 +114,25 @@ export class forgeAPIWrapper {
         }
     }
     
+    getProjectContents = (projectId: string) => async (folderId: string) => {
+        // TODO: add optional params (https://forge.autodesk.com/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/)
+        try {
+            const t = await this.getToken()
+            const token = t.access_token;
+            const url = `${forgeAPIWrapper.urlRoot}/data/v1/projects/${projectId}/folders/${folderId}/contents`
+            
+            const response = await axios({
+                method: 'get',
+                url,
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                }
+            })
+            
+            return response
+        } catch (error) {
+            throw error
+        }
+    }
+
 }

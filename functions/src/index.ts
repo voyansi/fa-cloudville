@@ -80,5 +80,16 @@ export const getTopFolder = functions.https.onRequest(async (request, response) 
     } catch (error) {
         response.send(error)
     }
-    
+})
+
+export const getContents = functions.https.onRequest(async (request, response) => {
+    const projectId = 'b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15'
+    const folderId = 'urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw'
+    try {
+        const fAPI = forgeAPIWrapper.getInstance()
+        const contents = await fAPI.getProjectContents(projectId)(folderId)
+        response.send(contents)
+    } catch (error) {
+        response.send(error)
+    }
 })
