@@ -1,10 +1,6 @@
 <template>
   <div id="app">
     <navigation></navigation>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <router-view/>
   </div>
 </template>
@@ -19,7 +15,7 @@ import Component from 'vue-class-component';
     Navigation
   } 
 })
-export default class HelloWorld extends Vue {
+export default class Application extends Vue {
 }
 </script>
 

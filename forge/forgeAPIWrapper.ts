@@ -1,29 +1,25 @@
 import { twolegAuthResponse, hubsResponse } from "./forgeInterfaces"
-import * as functions from 'firebase-functions'
 import axios from 'axios'
 import * as querystring from 'querystring'
 
+export interface forgeAppConfig {
+    clientId: string;
+    clientSecret: string;
+}
+
 export class forgeAPIWrapper {
     private static urlRoot = `https://developer.api.autodesk.com`
-    private static instance?: forgeAPIWrapper;
+    private config: forgeAppConfig;
     
-    private constructor(){
-        
+    constructor(c: forgeAppConfig){
+        this.config = c;
     }
 
-    static getInstance = () => {
-        if(forgeAPIWrapper.instance){
-            return forgeAPIWrapper.instance;
-        } else {
-            forgeAPIWrapper.instance = new forgeAPIWrapper();
-            return forgeAPIWrapper.instance;
-        }
-    }
 
     getToken = async (): Promise<twolegAuthResponse> => {
         //TODO: factor out functions.config() dependency
-        const client_id = functions.config().forgeapi.client_id
-        const client_secret = functions.config().forgeapi.client_secret
+        const client_id = this.config.clientId
+        const client_secret = this.config.clientSecret
         const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
         // scopes need to be URI encoded
         // const scope = encodeURI(`data:read account:read`)
