@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { forgeAPIWrapper } from '../../forge/forgeAPIWrapper';
+import { forgeAPIWrapper } from '../../functions/forge/forgeAPIWrapper';
 
 @Component
 export default class Navigation extends Vue {

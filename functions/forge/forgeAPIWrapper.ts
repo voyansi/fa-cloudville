@@ -57,32 +57,11 @@ export class forgeAPIWrapper {
         return new forgeAPIWrapper(auth);
     }
 
-    static withThreeLeggedAuth(c: forgeAuthConfig) {
+    // static withThreeLeggedAuth(c: forgeAuthConfig) {
 
-    }
-
-    // isAuthenticated() {
-    //     return this.authenticated;
     // }
-
-    // getThreeLeggedUrl = () => {
-    //     return this.oAuth2ThreeLegged.generateAuthUrl()
-    // }
-
-    // getThreeLeggedToken = async (authCode: string) => {
-    //     return await this.oAuth2ThreeLegged.getToken(authCode)
-    // }
-
 
     getToken = async (): Promise<forgeAuthToken | undefined> => {
-        // //TODO: factor out functions.config() dependency
-        // const client_id = this.config.clientId
-        // const client_secret = this.config.clientSecret
-        // const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
-        // // scopes need to be URI encoded
-        // // const scope = encodeURI(`data:read account:read`)
-        // const scope = 'data:read account:read data:create data:write viewables:read'
-
         try {
                 console.log(this.auth)
             if (this.auth.isAuthenticated()) {

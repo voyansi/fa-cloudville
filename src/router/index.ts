@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
-import Redirect from '../views/Redirect.vue'
 import store from '../store'
-import { forgeAPIWrapper } from 'forge/forgeAPIWrapper'
+import { forgeAPIWrapper } from 'functions/forge/forgeAPIWrapper'
 
 Vue.use(VueRouter)
 

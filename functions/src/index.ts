@@ -1,5 +1,5 @@
 import * as functions from 'firebase-functions';
-import { forgeAPIWrapper } from '../../forge/forgeAPIWrapper';
+import { forgeAPIWrapper } from '../forge/forgeAPIWrapper';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -24,7 +24,7 @@ export const fetchToken = functions.https.onRequest(async (request, response) =>
     }
 })
 
-export const getHubs = functions.https.onRequest(async(reqest, response ) => {
+export const getHubs = functions.https.onRequest(async (reqest, response) => {
     try {
         const hubs = await faw.getHubs()
         response.send(hubs)
@@ -33,7 +33,7 @@ export const getHubs = functions.https.onRequest(async(reqest, response ) => {
     }
 })
 
-export const getProjects = functions.https.onRequest(async(reqest, response ) => {
+export const getProjects = functions.https.onRequest(async (reqest, response) => {
     try {
         const hubs = await faw.getHubs()
         const hubId = hubs.data[0].id
@@ -58,12 +58,14 @@ export const getTopFolder = functions.https.onRequest(async (request, response) 
 })
 
 export const getContents = functions.https.onRequest(async (request, response) => {
-    // const projectId = 'b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15'
-    const projectId = 'b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15'
-    // const folderId = 'urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw'
-    const folderId = 'urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw'
+    const faw = forgeAPIWrapper.withTwoLeggedAuth({
+        //@ts-ignore
+        clientId: functions.config().forgeapi.client_id,
+        clientSecret: functions.config().forgeapi.client_secret,
+        scope: 'data:read data:write data:create account:read account:write'
+    })
     try {
-        const contents = await faw.getProjectContents(projectId)(folderId)
+        const contents = await faw.getProjectContents('b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15')('urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw')
         response.send(contents)
     } catch (error) {
         response.send(error)
