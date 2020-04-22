@@ -24,7 +24,7 @@ Vue.use(VueRouter)
   {
     path: '/callback',
     name: 'AuthCallback',
-    component: Redirect
+    component: Home
   }
 ]
 
@@ -34,14 +34,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(r => r.meta.requiresForgeAuth)){
-    if(!store.state.permission){
-      const url = store.dispatch('getForgeAuthenticationLink')
-    }
+  // if(to.matched.some(r => r.meta.requiresForgeAuth)){
+  //   // if(!store.state.permission){
+  //   //   const url = store.dispatch('getForgeAuthenticationLink')
+  //   // }
     
-  } else {
-    next()
-  }
+  // } else {
+  //   next()
+  // }
 })
 
 export default router

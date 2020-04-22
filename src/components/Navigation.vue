@@ -24,15 +24,13 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { forgeAPIWrapper } from '../../forge/forgeAPIWrapper';
 
-const f = new forgeAPIWrapper()
-
 @Component
 export default class Navigation extends Vue {
   @Prop() private msg!: string;
 
   async login(){
-      const token = await f.authenticate()
-      console.log(token)
+      const contents = await this.$store.dispatch('getContents')
+      console.log(contents)
   }
 }
 </script>

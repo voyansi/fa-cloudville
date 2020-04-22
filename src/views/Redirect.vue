@@ -10,6 +10,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue'
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import {forgeAPIWrapper} from '../../forge/forgeAPIWrapper';
 
 @Component
 export default class Redirect extends Vue{
@@ -20,6 +21,7 @@ export default class Redirect extends Vue{
     const code = query.code
     //@ts-ignore
     // const token = await this.$forge.getThreeLeggedToken(code);
+    const token = await f.isAuthenticated()
     console.log(token)
   }
 }

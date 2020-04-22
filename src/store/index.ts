@@ -14,24 +14,31 @@ import {forgeAPIWrapper} from '../../forge/forgeAPIWrapper';
 //   scopes: encodeURI('data:read')
 // })
 
+const forge = forgeAPIWrapper.withTwoLeggedAuth({
+  clientId: process.env.VUE_APP_CLIENT_ID,
+  clientSecret: process.env.VUE_APP_CLIENT_SECRET,
+  // redirectUrl: process.env.VUE_APP_REDIRECT,
+  scopes: 'data:read data:write data:create account:read account:write'
+})
+
 Vue.use(Vuex)
 
-interface VState {
-  permission: boolean
-}
-
-const state: VState = {
-  permission: false
-}
 
 
 export default new Vuex.Store({
-  state,
+  state: {
+  },
   getters: {
   },
   mutations: {
   },
   actions: {
+    async getToken(){
+      return await forge.getToken()
+    },
+    async getContents(){
+      return await forge.getProjectContents('b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15')('urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw')
+    }
   },
   modules: {
   }

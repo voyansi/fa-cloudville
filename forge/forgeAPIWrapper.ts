@@ -1,114 +1,104 @@
-import { twolegAuthResponse, hubsResponse } from "./forgeInterfaces"
+import { hubsResponse } from "./forgeInterfaces"
 import axios from 'axios'
 //@ts-ignore
 import * as querystring from 'querystring'
-import { AuthClientThreeLegged } from "forge-apis"
-import { OAuth2PopupFlow } from 'oauth2-popup-flow';
-const ForgeSDK = require('forge-apis')
+import { forgeAuthTwoLegged } from './forgeAuthTwoLegged'
 
-export interface forgeAppConfig {
+export interface forgeAuthConfig {
     clientId: string;
-    clientSecret: string;
-    redirectUrl: string;
-    scopes: string;
+    clientSecret?: string;
+    redirectUrl?: string;
+    scope: string;
 }
 
-export interface forgeThreeLegToken {
+export interface forgeAuthTokenTwoLegged {
     token_type: 'Bearer',
     expires_in: number,
-    refresh_token: string,
     access_token: string
-    exp: number
 }
 
+export interface forgeAuthThreeLeggedCallback {
+    code: string;
+}
+
+export interface forgeAuthTokenThreeLeggedAuthCode {
+    token_type: 'Bearer',
+    expires_in: number,
+    access_token: string,
+    refresh_token: string
+}
+
+export interface forgeAuthTokenThreeLeggedImplicitGrant {
+    access_token: string
+}
+
+export type forgeAuthToken = forgeAuthTokenThreeLeggedAuthCode | forgeAuthTokenTwoLegged | forgeAuthTokenThreeLeggedImplicitGrant
+
+
+export abstract class forgeAuth {
+    // TODO: fix the need for the undefiend type
+    abstract isAuthenticated(): boolean
+    // refresh a token if it has expires
+    abstract refresh(): Promise<forgeAuthToken | undefined>
+    // get the token from the auth wrapper
+    abstract getToken(): Promise<forgeAuthToken | undefined>
+}
 
 export class forgeAPIWrapper {
     private static urlRoot = `https://developer.api.autodesk.com`
-    // private config: forgeAppConfig;
-    // private oAuth2ThreeLegged: AuthClientThreeLegged;
-    private auth: OAuth2PopupFlow<forgeThreeLegToken>;
+    private auth: forgeAuth;
 
-    constructor() {
-        // this.config = c;
-        
-        this.auth = new OAuth2PopupFlow<forgeThreeLegToken>({
-            authorizationUri: '	https://developer.api.autodesk.com/authentication/v1/authorize',
-            //@ts-ignore
-            clientId: process.env.VUE_APP_CLIENT_ID,
-            //@ts-ignore
-            redirectUri: process.env.VUE_APP_REDIRECT,
-            scope: 'data:read'
-        })
-
-        // set up Forge SDK 3 Legged Auth
-        // const autoRefresh = true;
-        // this.oAuth2ThreeLegged = new ForgeSDK.AuthClientThreeLegged(
-        //     this.config.clientId,
-        //     this.config.clientSecret,
-        //     this.config.redirectUrl,
-        //     this.config.scopes.split(' '), autoRefresh)
+    private constructor(auth: forgeAuth) {
+        this.auth = auth
     }
 
-    isAuthenticated() {
-        return this.auth.loggedIn();
+    static withTwoLeggedAuth(c: forgeAuthConfig) {
+        const auth = new forgeAuthTwoLegged(c);
+        return new forgeAPIWrapper(auth);
     }
 
-    async authenticate() {
-        const result = await this.auth.tryLoginPopup()
-        if(result === 'ALREADY_LOGGED_IN'){
-            return this.auth.tokenPayload()
-        } else if(result === 'POPUP_FAILED'){
-            alert('could not open pop-up')
-        } else if (result === 'SUCCESS'){
-            return this.auth.tokenPayload()
-        }
+    static withThreeLeggedAuth(c: forgeAuthConfig) {
+
     }
 
-    getThreeLeggedUrl = () => {
-        // return this.oAuth2ThreeLegged.generateAuthUrl()
-    }
+    // isAuthenticated() {
+    //     return this.authenticated;
+    // }
+
+    // getThreeLeggedUrl = () => {
+    //     return this.oAuth2ThreeLegged.generateAuthUrl()
+    // }
 
     // getThreeLeggedToken = async (authCode: string) => {
     //     return await this.oAuth2ThreeLegged.getToken(authCode)
     // }
 
-    getToken = () => false;
 
+    getToken = async (): Promise<forgeAuthToken | undefined> => {
+        // //TODO: factor out functions.config() dependency
+        // const client_id = this.config.clientId
+        // const client_secret = this.config.clientSecret
+        // const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
+        // // scopes need to be URI encoded
+        // // const scope = encodeURI(`data:read account:read`)
+        // const scope = 'data:read account:read data:create data:write viewables:read'
 
-    // getToken = async (): Promise<twolegAuthResponse> => {
-    //     //TODO: factor out functions.config() dependency
-    //     const client_id = this.config.clientId
-    //     const client_secret = this.config.clientSecret
-    //     const url = `${forgeAPIWrapper.urlRoot}/authentication/v1/authenticate`
-    //     // scopes need to be URI encoded
-    //     // const scope = encodeURI(`data:read account:read`)
-    //     const scope = 'data:read account:read data:create data:write viewables:read'
-
-    //     try {
-    //         const forgeResponse = await axios({
-    //             method: 'post',
-    //             url,
-    //             // data needs to be in a query string
-    //             data: querystring.stringify({
-    //                 client_id,
-    //                 client_secret,
-    //                 'grant_type': 'client_credentials',
-    //                 scope,
-    //             }),
-    //             headers: {
-    //                 'Content-Type': 'application/x-www-form-urlencoded',
-    //             }
-    //         })
-    //         return (forgeResponse.data)
-
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // }
+        try {
+                console.log(this.auth)
+            if (this.auth.isAuthenticated()) {
+                return await this.auth.getToken();
+            } else {
+                return await this.auth.getToken()
+            }
+        } catch (error) {
+            throw error
+        }
+    }
 
     getHubs = async (): Promise<hubsResponse> => {
         try {
             const t = await this.getToken()
+            //@ts-ignore
             const token = t.access_token;
             const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs`
             const response = await axios({
@@ -129,6 +119,7 @@ export class forgeAPIWrapper {
     getProjects = async (hubId: string) => {
         try {
             const t = await this.getToken()
+            //@ts-ignore
             const token = t.access_token;
             const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs/${hubId}/projects`
 
@@ -151,6 +142,7 @@ export class forgeAPIWrapper {
     getProjectTopFolder = (hubId: string) => async (projectId: string) => {
         try {
             const t = await this.getToken()
+            //@ts-ignore
             const token = t.access_token;
             const url = `${forgeAPIWrapper.urlRoot}/project/v1/hubs/${hubId}/projects/${projectId}/topFolders`
 
@@ -173,6 +165,7 @@ export class forgeAPIWrapper {
         // TODO: add optional params (https://forge.autodesk.com/en/docs/data/v2/reference/http/projects-project_id-folders-folder_id-contents-GET/)
         try {
             const t = await this.getToken()
+            //@ts-ignore
             const token = t.access_token;
             const url = `${forgeAPIWrapper.urlRoot}/data/v1/projects/${projectId}/folders/${folderId}/contents`
 
@@ -181,10 +174,11 @@ export class forgeAPIWrapper {
                 url,
                 headers: {
                     'Authorization': `Bearer ` + token,
+                    'Accept': '*/*'
                 }
             })
 
-            return response
+            return response.data
         } catch (error) {
             throw error
         }
