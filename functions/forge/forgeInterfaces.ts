@@ -4,6 +4,8 @@ export interface twolegAuthResponse {
     expires_in: 3599
 }
 
+export type forgeIDTypes = 'checklistsContainerId' | "issueContainerId"
+
 export interface hubsResponse {
     jsonapi: {
         version: string
@@ -18,6 +20,7 @@ export interface hubsResponse {
         id: string,
         attributes: {
             name: string,
+            region: string,
             extension: {
                 type: string,
                 version: string,

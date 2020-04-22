@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {forgeAPIWrapper} from '../../functions/forge/forgeAPIWrapper';
+import {forgeAPINormalizer, forgeHub} from '../../functions/forge/forgeAPINormalizer';
 
 // const forgeAPI = new forgeAPIWrapper({
 //   // TODO: add logic to handle env vars in production
@@ -34,21 +35,37 @@ export default new Vuex.Store({
   getters: {
   },
   mutations: {
+    setHubs(state, hubs){
+      state.hubs = hubs
+    },
+    setProjects(state, projects){
+      state.projects = projects
+    }
   },
   actions: {
     async getToken(){
       return await forge.getToken()
     },
     // load available hubs
-    async loadHubs(){
-      
+    async loadHubs(store){
+      const hubs = await forge.getHubs();
+      const nHubs = forgeAPINormalizer.parseHubsResponse(hubs)
+      store.commit('setHubs', nHubs);
     },
     // load available projects in those hubs
-    async loadProjects(){
-       
+    async loadProjects(store){
+       const hubs = store.state.hubs;
+       const projects = await Promise.all(hubs.map((h: forgeHub) => forge.getProjects(h.id)));
+       console.log(projects)
+       const nProjects = forgeAPINormalizer.parseProjectsResponse(projects)
+       store.commit('setProjects', nProjects)
     },
     async getContents(store, [hubId, projectId]: string[]){
       
+    },
+    async loadData({dispatch}){
+      await dispatch('loadHubs')
+      await dispatch('loadProjects')
     }
   },
   modules: {
