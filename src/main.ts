@@ -5,20 +5,15 @@ import router from './router'
 import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import '@fortawesome/fontawesome-free/css/solid.css'
+import '@fortawesome/fontawesome-free/css/fontawesome.css'
+
+Vue.use(Buefy, { defaultIconPack: 'fas' })
+
 import { forgeAPIWrapper } from '../functions/forge/forgeAPIWrapper'
 
 Vue.config.productionTip = false
 
-Vue.use(Buefy)
-
-
-// extends the vue type to so typescript knows what's happening
-declare module "vue/types/vue" {
-  interface Vue {
-    $forge: forgeAPIWrapper
-  }
-}
-// add forge wrapper to global variables
 
 new Vue({
   router,
