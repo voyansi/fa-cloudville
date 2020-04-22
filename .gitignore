@@ -23,3 +23,6 @@ yarn-error.log*
 # Firebase configuration
 firebase-key.json
 .env
+
+# forge configuration
+forgeAppConfig.json

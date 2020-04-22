@@ -9,6 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/forge-apis": "^0.7.1",
     "@types/jest": "^25.2.1",
     "axios": "^0.19.2",
     "buefy": "^0.8.15",
@@ -16,6 +17,7 @@
     "dotenv": "^8.2.0",
     "forge-apis": "^0.7.3",
     "jest": "^25.4.0",
+    "oauth2-popup-flow": "^1.1.0",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",

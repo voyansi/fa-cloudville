@@ -11,7 +11,7 @@
            <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-light">
+                    <a @click="login" class="button is-light">
                         Log in
                     </a>
                 </div>
@@ -22,10 +22,18 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { forgeAPIWrapper } from '../../forge/forgeAPIWrapper';
+
+const f = new forgeAPIWrapper()
 
 @Component
-export default class HelloWorld extends Vue {
+export default class Navigation extends Vue {
   @Prop() private msg!: string;
+
+  async login(){
+      const token = await f.authenticate()
+      console.log(token)
+  }
 }
 </script>
 

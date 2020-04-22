@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import Redirect from '../views/Redirect.vue'
+import store from '../store'
+import { forgeAPIWrapper } from 'forge/forgeAPIWrapper'
 
 Vue.use(VueRouter)
 
@@ -17,11 +20,28 @@ Vue.use(VueRouter)
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/callback',
+    name: 'AuthCallback',
+    component: Redirect
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(r => r.meta.requiresForgeAuth)){
+    if(!store.state.permission){
+      const url = store.dispatch('getForgeAuthenticationLink')
+    }
+    
+  } else {
+    next()
+  }
 })
 
 export default router
