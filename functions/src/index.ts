@@ -1,8 +1,5 @@
 import * as functions from 'firebase-functions';
-// import * as querystring from 'querystring';
-// import axios from 'axios'
-// import { twolegAuthResponse } from './forgeInterfaces';
-import { forgeAPIWrapper } from './forgeAPIWrapper';
+import { forgeAPIWrapper } from '../forge/forgeAPIWrapper';
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
@@ -11,57 +8,36 @@ import { forgeAPIWrapper } from './forgeAPIWrapper';
 //  response.send("Hello from Firebase!");
 // });
 
-// const getToken = async ():Promise<twolegAuthResponse> => {
-//     const client_id = functions.config().forgeapi.client_id
-//     const client_secret = functions.config().forgeapi.client_secret
-//     const url = `https://developer.api.autodesk.com/authentication/v1/authenticate`
-//     const scopes = encodeURI(`data:read account:read`)
-//     try {
-//         const forgeResponse = await axios({
-//                 method: 'post',
-//                 url,
-//                 data: querystring.stringify({
-//                     client_id,
-//                     client_secret,
-//                     'grant_type': 'client_credentials',
-//                     scopes,
-
-//                 }),
-//                 headers: {
-//                     'Content-Type': 'application/x-www-form-urlencoded'
-//                 }
-//             })
-//         return (forgeResponse.data)
-
-//     } catch (error) {
-//         throw error
-//     }
-// }
-
+const faw = forgeAPIWrapper.withTwoLeggedAuth({
+    //@ts-ignore
+    clientId: functions.config().forgeapi.client_id,
+    clientSecret: functions.config().forgeapi.client_secret,
+    scope: 'data:read data:write data:create account:read account:write'
+})
 
 export const fetchToken = functions.https.onRequest(async (request, response) => {
     try {
-        const token = await forgeAPIWrapper.getInstance().getToken()
+        const token = await faw.getToken()
         response.send(token)
     } catch (error) {
         response.send(error)
     }
 })
 
-export const getHubs = functions.https.onRequest(async(reqest, response ) => {
+export const getHubs = functions.https.onRequest(async (reqest, response) => {
     try {
-        const hubs = await forgeAPIWrapper.getInstance().getHubs()
+        const hubs = await faw.getHubs()
         response.send(hubs)
     } catch (error) {
         response.send(error)
     }
 })
 
-export const getProjects = functions.https.onRequest(async(reqest, response ) => {
+export const getProjects = functions.https.onRequest(async (reqest, response) => {
     try {
-        const hubs = await forgeAPIWrapper.getInstance().getHubs()
+        const hubs = await faw.getHubs()
         const hubId = hubs.data[0].id
-        const projects = await forgeAPIWrapper.getInstance().getProjects(hubId)
+        const projects = await faw.getProjects(hubId)
         response.send(projects)
     } catch (error) {
         response.send(error)
@@ -70,12 +46,11 @@ export const getProjects = functions.https.onRequest(async(reqest, response ) =>
 
 export const getTopFolder = functions.https.onRequest(async (request, response) => {
     try {
-        const fAPI = forgeAPIWrapper.getInstance()
-        const hubs = await fAPI.getHubs()
+        const hubs = await faw.getHubs()
         const hubId = hubs.data[0].id
-        const projects = await fAPI.getProjects(hubId)
+        const projects = await faw.getProjects(hubId)
         const projectId = projects.data[0].id
-        const projectTopFolder = await fAPI.getProjectTopFolder(hubId)(projectId)
+        const projectTopFolder = await faw.getProjectTopFolder(hubId)(projectId)
         response.send(projectTopFolder)
     } catch (error) {
         response.send(error)
@@ -83,11 +58,14 @@ export const getTopFolder = functions.https.onRequest(async (request, response) 
 })
 
 export const getContents = functions.https.onRequest(async (request, response) => {
-    const projectId = 'b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15'
-    const folderId = 'urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw'
+    const faw = forgeAPIWrapper.withTwoLeggedAuth({
+        //@ts-ignore
+        clientId: functions.config().forgeapi.client_id,
+        clientSecret: functions.config().forgeapi.client_secret,
+        scope: 'data:read data:write data:create account:read account:write'
+    })
     try {
-        const fAPI = forgeAPIWrapper.getInstance()
-        const contents = await fAPI.getProjectContents(projectId)(folderId)
+        const contents = await faw.getProjectContents('b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15')('urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw')
         response.send(contents)
     } catch (error) {
         response.send(error)
