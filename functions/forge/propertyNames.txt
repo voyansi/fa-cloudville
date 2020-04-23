@@ -1,0 +1,878 @@
+name
+schema_name
+schema_version
+is_doc_property
+Category
+Organization Name
+Organization Description
+Building Name
+Author
+Workset
+Edited by
+Energy Settings
+Barrio
+Sector
+Manzana
+EX-RX-TX
+Project Issue Date
+Project Status
+Client Name
+Project Address
+Project Name
+Project Number
+Level
+child
+View
+Sheet
+CategoryId
+parent
+hyperlink
+Elevation
+Story Above
+Computation Height
+Scope Box
+Name
+Structural
+Building Story
+Component
+View Scale
+Scale Value 1:
+Display Model
+Detail Level
+Parts Visibility
+Visibility/Graphics Overrides
+Graphic Display Options
+Orientation
+Wall Join Display
+Discipline
+Show Hidden Lines
+Color Scheme Location
+Color Scheme
+System Color Schemes
+Default Analysis Display Style
+Sun Path
+Crop View
+Crop Region Visible
+Annotation Crop
+View Range
+Associated Level
+Depth Clipping
+View Template
+View Name
+Dependency
+Title on Sheet
+Referencing Sheet
+Referencing Detail
+User Name
+Phase Filter
+Phase
+Parcela
+Etapa
+Hide at scales coarser than
+Reference Label
+Far Clipping
+Far Clip Offset
+Associated Datum
+Far Clip Active
+Section Box
+Rendering Settings
+Locked Orientation
+Perspective
+Eye Elevation
+Target Elevation
+Camera Position
+Scale
+Current Revision Issued
+Current Revision Issued By
+Current Revision Issued To
+Current Revision Date
+Current Revision Description
+Current Revision
+Approved By
+Designed By
+Checked By
+Drawn By
+Sheet Number
+Sheet Name
+Sheet Issue Date
+Appears In Sheet List
+Revisions on Sheet
+File Path
+Guide Grid
+Column Symbolic Offset
+instanceof_objid
+Detail Number
+Rotation on Sheet
+Type Name
+_RC
+_RFN
+Callout Tag
+View Template applied to new views
+New views are dependent on template
+_RFT
+Color
+Transparency
+Glow
+Smoothness
+Shininess
+Image
+Keynote
+Model
+Manufacturer
+Comments
+URL
+Description
+Cost
+Mark
+Material Type
+Class
+Subclass
+Behavior
+Young modulus X
+Young modulus Y
+Young modulus Z
+Poisson ratio X
+Poisson ratio Y
+Poisson ratio Z
+Shear modulus X
+Shear modulus Y
+Shear modulus Z
+Thermal expansion coefficient X
+Thermal expansion coefficient Y
+Thermal expansion coefficient Z
+Unit weight
+Damping ratio
+Minimum yield stress
+Reduction factor for shear
+Concrete compression
+Lightweight
+Shear strength modification
+Minimum tensile strength
+Young modulus
+Poisson ratio
+Shear modulus
+Thermal expansion coefficient
+Species
+Grade
+Bending
+Compression parallel to grain
+Compression perpendicular to grain
+Shear parallel to grain
+Tension perpendicular to grain
+Host
+OmniClass Number
+OmniClass Title
+Always vertical
+Cut with Voids When Loaded
+Shared
+Mullion Family General Shape
+Elevation Tag
+V/G Overrides Model
+V/G Overrides Annotation
+V/G Overrides Analytical Model
+V/G Overrides Import
+V/G Overrides Filters
+V/G Overrides Worksets
+Model Display
+Shadows
+Sketchy Lines
+Lighting
+Photographic Exposure
+Depth Cueing
+Background
+Work Plane Grid Spacing
+Revision Sequence
+Revision Number
+Revision Date
+Revision Description
+Issued
+Issued to
+Issued by
+Numbering
+Sun path size (%)
+Section Shape
+Rotate with component
+Profile Usage
+Material for Model Behavior
+Calculated Supply Airflow
+Calculated Supply Airflow per area
+Occupied Area
+Gross Area
+Occupied Volume
+Gross Volume
+Perimeter
+Service Type
+Coil Bypass
+Cooling Information
+Heating Information
+Outdoor Air Information
+Calculated Heating Load
+Calculated Heating Load per area
+Calculated Area per Heating Load
+Calculated Cooling Load
+Calculated Cooling Load per area
+Calculated Area per Cooling Load
+Area per Person
+Sensible Heat Gain per person
+Latent Heat Gain per person
+Specified Lighting Load per area
+Specified Power Load per area
+Plenum Lighting Contribution
+Occupancy Schedule
+Lighting Schedule
+Power Schedule
+Outdoor Air per Person
+Outdoor Air per Area
+Air Changes per Hour
+Outdoor Air Method
+Opening Time
+Closing Time
+Unoccupied Cooling Set Point
+N/S
+E/W
+Elev
+Angle to True North
+Mode
+Ground Plane
+Project Phase
+Analytical Space Resolution
+Analytical Surface Resolution
+Perimeter Zone Depth
+Perimeter Zone Division
+Elevation Mark Use
+Mass Exterior Wall
+Mass Interior Wall
+Mass Exterior Wall - Underground
+Mass Roof
+Mass Floor
+Mass Slab
+Mass Glazing
+Mass Skylight
+Mass Shade
+Mass Opening
+Keywords
+Source URL
+Source
+External Material ID
+Sharing
+Asset library id
+Density
+Specific Heat
+Thermal Conductivity Z
+Thermal Conductivity Y
+Thermal Conductivity X
+Thermal Conductivity
+Thermal Expansion Coefficient 2
+Thermal Expansion Coefficient 1
+Shear Modulus 12
+Poisson Ratio 23
+Poisson Ratio 12
+Young's Modulus 2
+Young's Modulus 1
+Property Set Name
+Resistance calculation strength
+Shear reinforcement yield stress
+Bending reinforcement
+Segment Description
+Connection Type
+Roughness
+Material
+Schedule/Type
+Electrical Resistivity
+Reflectivity
+Porosity
+Permeability
+Transmits Light
+Emissivity
+Thermally Treated
+Construction
+5% Modulus of Elasticity
+Average Modulus
+Tension Perpendicular to Grain
+Tension Parallel to Grain
+Compressibility
+Gas Viscosity
+Coarse Poche Material
+Date/Time Stamp
+Sheet Width
+Sheet Height
+Room Name
+Room Number
+Fields
+Filter
+Sorting/Grouping
+Formatting
+Appearance
+Type Image
+Type Comments
+Assembly Description
+Assembly Code
+Type Mark
+Code Name
+Moves With Nearby Elements
+Mass Floors
+Gross Floor Area
+Gross Surface Area
+Phase Created
+Phase Demolished
+Structure
+Wrapping at Inserts
+Wrapping at Ends
+Width
+Function
+Coarse Scale Fill Pattern
+Coarse Scale Fill Color
+Structural Material
+Heat Transfer Coefficient (U)
+Thermal Resistance (R)
+Thermal mass
+Absorptance
+Fire Rating
+W-Item A
+W-Item B
+W-Item C
+W-Item D
+W-Item E
+W-Item F
+W-Item G
+Location Line
+Base Constraint
+Base Offset
+Base is Attached
+Base Extension Distance
+Top Constraint
+Unconnected Height
+Top Offset
+Top is Attached
+Top Extension Distance
+Room Bounding
+Related to Mass
+Enable Analytical Model
+Structural Usage
+Length
+Area
+Volume
+Numero de Tarea A
+Rubro
+Numero de Rubro
+Pintura
+Picar
+viewable_in
+Default Thickness
+Base Level
+Base Offset From Level
+Cutoff Level
+Cutoff Offset
+Rafter Cut
+Fascia Depth
+Maximum Ridge Height
+Cota de Nivel
+Slope
+Thickness
+Numero de Item
+Defines Roof Slope
+Offset From Roof Base
+Room Calculation Point
+Wall Closure
+Construction Type
+Frame Material
+Net Material
+Net1aterial
+Panel material
+Bar Spacing
+Rough Width
+Rough Height
+Analytic Construction
+Visual Light Transmittance
+Solar Heat Gain Coefficient
+Operation
+Bars
+Mesh
+Win
+Default Sill Height
+Sill Height
+Height
+Retiro
+Numero de Tarea B
+Numero de Tarea C
+Num of Bars
+Head Height
+Door
+Frame Type
+Finish
+Subcategory
+Dimension String Type
+Leader Type
+Leader Tick Mark
+Show Leader When Text Moves
+Tick Mark
+Line Weight
+Tick Mark Line Weight
+Dimension Line Extension
+Flipped Dimension Line Extension
+Witness Line Control
+Witness Line Length
+Witness Line Gap to Element
+Witness Line Extension
+Witness Line Tick Mark
+Centerline Symbol
+Centerline Pattern
+Centerline Tick Mark
+Interior Tick Mark Display
+Interior Tick Mark
+Ordinate Dimension Settings
+Dimension Line Snap Distance
+Width Factor
+Underline
+Italic
+Bold
+Text Size
+Text Offset
+Read Convention
+Text Font
+Text Background
+Units Format
+Alternate Units
+Alternate Units Format
+Alternate Units Prefix
+Alternate Units Suffix
+Show Opening Height
+Suppress Spaces
+Equality Text
+Equality Formula
+Equality Witness Display
+Leader
+Part Type
+Can host rebar
+Round Connector Dimension
+Work Plane-Based
+Structural Framing Length Roundoff
+Always export as geometry
+Symbolic Representation
+Show family pre-cut in plan views
+Beam cutback in plan
+Filter Parameter
+Keep text readable
+Material Tuberia
+Material Tanque
+Nombre
+Offset
+Tuberias Izquierda
+Tuberias Derecha
+Baseline Offset
+Value
+Still Height
+Angle
+Lenght
+Min Width
+Metal
+Wood
+Metal Material
+Wood Material
+Panel Width
+Partial Width
+w
+Number Of Bars
+Interior Height
+Maximum Riser Height
+Minimum Tread Depth
+Minimum Run Width
+Calculation Rules
+Run Type
+Landing Type
+Right Support
+Right Support Type
+Right Lateral Offset
+Left Support
+Left Support Type
+Left Lateral Offset
+Middle Support
+Middle Support Type
+Middle Support Number
+Cut Mark Type
+Top Level
+Desired Stair Height
+Desired Number of Risers
+Actual Number of Risers
+Actual Riser Height
+Actual Tread Depth
+Tread/Riser Start Number
+Tread Material
+Riser Material
+Tread
+Tread Thickness
+Tread Profile
+Nosing Length
+Nosing Profile
+Apply Nosing Profile
+Riser
+Slanted
+Riser Thickness
+Riser Profile
+Riser To Tread Connection
+Relative Base Height
+Relative Top Height
+Run Height
+Extend Below Riser Base
+Begin with Riser
+End with Riser
+Center Mark Visible
+Actual Run Width
+Actual Number of Treads
+Start Symbol Type
+Start Extension
+Arrowhead Type
+Full Step Arrow
+Line Shape at Landing Corner
+Distance to Cut Mark
+Show Arrowhead to Cut Mark
+Text Type
+Show Up Text
+Up Text
+Show Down Text
+Down Text
+Railing Height
+Rail Structure (Non-Continuous)
+Baluster Placement
+Baluster Offset
+Use Landing Height Adjustment
+Landing Height Adjustment
+Angled Joins
+Tangent Joins
+Rail Connections
+Use Top Rail
+Type
+Lateral Offset
+Position
+Offset from Path
+Post
+Baluster Material
+Diameter
+Top Cut Angle
+Slope Angle
+Bottom Cut Angle
+Baluster Height
+Radius
+Depth
+Visibility
+Connection Status
+Node Number
+W
+A
+bf
+d
+k
+tf
+tw
+Section Name Key
+Reference Level
+Work Plane
+Start Level Offset
+End Level Offset
+Cross-Section Rotation
+End Extension
+Start Join Cutback
+yz Justification
+y Justification
+y Offset Value
+z Justification
+z Offset Value
+Stick Symbol Location
+Start Connection
+End Connection
+Cut Length
+Start Attachment Type
+Camber Size
+Number of studs
+Elevation at Top
+Elevation at Bottom
+Analyze As
+Analytical Links
+Family Type
+Physical Material Asset
+Start Alignment Method
+Start y Projection
+Start z Projection
+End Alignment Method
+End y Projection
+End z Projection
+Member Number
+End Join Cutback
+End Attachment Type
+_Width
+Width (pixels)
+Height (pixels)
+Resolution (dpi)
+Loaded from file
+Horizontal Scale
+Vertical Scale
+Lock Proportions
+Draw Layer
+Key 1
+Key 2
+Door material
+Glass
+Rainforced Glass
+small cross
+Frame Projection Ext.
+Frame Projection Int.
+Frame Width
+Clear Opening
+Outside Net Swing
+Flipped
+Section Tag
+Shape
+Ht
+b
+kr
+t
+Column Location Mark
+Column Style
+Moves With Grids
+Top Connection
+Base Connection
+Top Alignment Method
+Top y Projection
+Top z Projection
+Top Extension Method
+Top x Projection
+Base Alignment Method
+Base y Projection
+Base z Projection
+Base Extension Method
+Base x Projection
+Same as Run
+Relative Height
+Total Thickness
+Height Offset From Level
+Defines Slope
+Defines Constant Height
+Offset From Base
+Concrete Cantilever
+Steel Cantilever
+Material de hoja
+Material de hoja de cristal
+Material exterior de cubrejuntas
+Material interior de cubrejuntas
+Mosquitero
+rougth distance
+end rough
+Default Elevation
+Panel Material
+Text Material
+housing
+opal glass
+Address
+Subject
+Schedule Level
+Weight (lb)
+Material Finish
+WFU
+HWFU
+CWFU
+Pipe Size
+Free Area (sq. in)
+SmartBIM Object Version
+SmartBIM Object Created By
+Product URL
+OmniClass Code
+95 CSI
+04 CSI
+Warranty
+Technical and Installation
+Pipe Radius
+System Classification
+System Type
+System Name
+System Abbreviation
+Profile
+Vertical Profile Offset
+Horizontal Profile Offset
+Length A
+Length B
+Separation
+Total Length
+B
+75
+100
+125
+150
+Leader Arrowhead
+Heigth
+4m
+h
+h1
+h2
+4.1 a 8.00
+8.00
+Key1
+Key2
+Half Angle
+Ang
+Number of Full Segments
+Esquina
+Distance
+Bearing
+TEXT
+cover material
+plate material
+cover thickness
+Exterior Width
+plate thickness
+TEXT WIDTH
+bars position
+Gate
+Label
+Rebar Cover
+Underside Surface
+Structural Depth
+Monolithic Material
+Monolithic Thickness
+Line Style
+Detail Line
+Curved Edge Condition
+Base
+Columna
+Rebar Cover - Top Face
+Rebar Cover - Bottom Face
+Rebar Cover - Other Faces
+Column Height
+Porton hierro
+Height Center
+Horizontal Divs
+Section Profile
+Flip Section Profile
+Structural Depth On Run
+Structural Depth On Landing
+Total Depth
+Lower End Cut
+Upper End Cut
+Trim Support at Upper
+Rafter or Truss
+Overhang
+Plate Offset From Base
+Extend into wall (to core)
+Box material
+Rolling shutter Material
+Box
+No. of Fins
+frame material
+Specify
+Level at Tail
+Height Offset at Tail
+Level at Head
+Height Offset at Head
+Equality Display
+Title
+Show Title
+Show Extension Line
+Line Pattern
+TEXTO
+L/R
+Fill Pattern
+Actual
+Demoliciones y Retiro
+Mejorado
+Largo
+LINEAS VISIBLES
+Leader Line
+TheText
+Left
+Right
+Complete
+Half
+1_100
+1_75
+Texto
+Baranda
+Comercio
+Cubierta
+Escalera
+Muro
+Nivel
+Puerta
+Rejas
+Ventana
+T4
+Text Subject
+Bar Material
+Base Material
+Cover Material
+Sign Board Material
+Bar Depth
+Bar Width
+Higher Height
+Lower Height
+Descripcion
+2 Modulos
+3 Modulos
+Detalle Balcon
+Detalle Cubierta
+Show Border
+Leader/Border Offset
+Tab Size
+Arc Leaders
+Left Attachment
+Right Attachment
+Horizontal Align
+Keep Readable
+Existente
+Mejoramiento
+No Slope
+CUBIERTA SIN INTERVENCION
+PA SIN INTERVENCION - EN PROCESO DE CONSTRUCCION
+PARCELA EN EMERGENCIA HABITACIONAL
+DUDOSA ESTABILIDAD ESTRUCTURAL
+SIN INTERVENCION POR BAJA VISIBILIDAD
+SIN INTERVENCION POR BAJA VISIBILIDAD DEL 2º PISO.
+SIN INTERVENCIÒN-EN PROCESO DE CONSTRUCCIÒN
+SIN INTERVENCIÒN-VERIFICAR ESTADO DE ABERTURAS
+SIN INTERVENCIÓN CASA CULTURA
+SIN INTERVENCIÓN- BAJO AUTOPISTA
+Wall offset
+E
+M
+E5-R5-T3
+FE-0100
+PO-0004
+North Arrow
+027
+028
+029
+030
+031
+032
+033
+034
+038
+039
+040
+041
+042
+043
+044
+046
+053
+054
+055
+056
+057
+058
+059
+060
+061
+035
+036
+037
+045
+047
+048
+049
+050
+051
+052
+Type Mark Label
+Tarea Simple
+Tipo
+Width Bar
+xref

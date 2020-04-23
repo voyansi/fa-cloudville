@@ -45,11 +45,11 @@ export default class ForgeViewer extends ViewerProps {
       );
       //@ts-ignore
       this.viewer.start();
-      var documentId =
-        "urn:" +
-        base64.encode(
-          "urn:adsk.wipprod:fs.file:vf.Qf4AaMwcQ2qSiEYZHSncPA?version=2"
-        );
+      var documentId = target
+        // "urn:" +
+        // base64.encode(
+        //   "urn:adsk.wipprod:fs.file:vf.Qf4AaMwcQ2qSiEYZHSncPA?version=2"
+        // );
       Autodesk.Viewing.Document.load(
         documentId,
         this.onDocumentLoadSuccess,
@@ -119,7 +119,8 @@ function userFunction(pdb: any) {
 
 <style scoped>
 #forge-viewer {
-  width: 100;
+  position: absolute;
+  width: 500px;
   height: 500px;
 }
 </style>
