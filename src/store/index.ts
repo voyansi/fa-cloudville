@@ -32,9 +32,13 @@ export default new Vuex.Store({
     hubs: [],
     projects: [],
     items: [],
-    folders: []
+    folders: [],
+    elements: []
   },
   getters: {
+    elementsByFilter: (state) => (filter: any) => {
+      return state.elements.filter(filter)
+    }
   },
   mutations: {
     setHubs(state, hubs) {
@@ -48,6 +52,9 @@ export default new Vuex.Store({
     },
     setItems(state, items){
       state.items = items
+    },
+    setElements(state, elements){
+      state.elements = elements
     }
   },
   actions: {
@@ -89,6 +96,9 @@ export default new Vuex.Store({
       await dispatch('loadProjects')
       await dispatch('loadTopFolders')
       await dispatch('getContents')
+    },
+    async loadModelElements(store, elements){
+      store.commit('setElements', elements); 
     }
   },
   modules: {
