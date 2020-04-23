@@ -25,8 +25,7 @@ export default class ForgeViewer extends ViewerProps {
 
   async mounted() {
     const token = await this.$store.dispatch("getToken");
-    const target =
-      "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkZmWGFrc2ZXUlVhMERPRGR2SkN6cWc_dmVyc2lvbj0y";
+    const target = 'urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkZmWGFrc2ZXUlVhMERPRGR2SkN6cWc_dmVyc2lvbj0y'
 
     const options = {
       env: "AutodeskProduction",
@@ -36,30 +35,23 @@ export default class ForgeViewer extends ViewerProps {
     const documentId = base64.encode(target);
 
     Autodesk.Viewing.Initializer(options, () => {
-      //@ts-ignore
-      this.viewer = new Autodesk.Viewing.GuiViewer3D(
-        document.getElementById("forge-viewer"),
-        { extensions: ["Autodesk.DocumentBrowser"] }
-      );
-      //@ts-ignore
-      this.viewer.start();
-      var documentId = target;
-      Autodesk.Viewing.Document.load(
-        documentId,
-        this.onDocumentLoadSuccess,
-        this.onDocumentLoadFailure
-      );
-    });
+    //@ts-ignore
+    this.viewer = new Autodesk.Viewing.GuiViewer3D(document.getElementById('forge-viewer'), { extensions: [ 'Autodesk.DocumentBrowser'] });
+    //@ts-ignore
+    this.viewer.start();
+    var documentId = 'urn:' + base64.encode('urn:adsk.wipprod:fs.file:vf.Qf4AaMwcQ2qSiEYZHSncPA?version=2')
+    Autodesk.Viewing.Document.load(documentId, this.onDocumentLoadSuccess, this.onDocumentLoadFailure);
+  });
   }
 
   onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
     // console.log("success");
     // console.log(doc);
-    var viewables = doc.getRoot().getDefaultGeometry();
-    //@ts-ignore
-    this.viewer.loadDocumentNode(doc, viewables).then(i => {
-      // documented loaded, any action?
-    });
+      var viewables = doc.getRoot().getDefaultGeometry();
+      //@ts-ignore
+  this.viewer.loadDocumentNode(doc, viewables).then(i => {
+    // documented loaded, any action?
+  });
   }
 
   onDocumentLoadFailure(error: any) {
