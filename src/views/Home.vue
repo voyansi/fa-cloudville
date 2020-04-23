@@ -5,7 +5,8 @@
         <forge-menu></forge-menu>
       </div>
       <div class="column">
-        <debug-view></debug-view>
+        <!-- <debug-view></debug-view> -->
+        <forge-viewer></forge-viewer>
       </div>
       
     </div>
@@ -15,12 +16,14 @@
 <script>
 import DebugView from './Debug.vue'
 import ForgeMenu from '../components/ForgeMenu.vue'
+import ForgeViewer from '../views/ForgeViewer.vue'
 
 export default {
   name: 'Home',
   components: {
     DebugView,
-    ForgeMenu
+    ForgeMenu,
+    ForgeViewer
   }
 }
 </script>

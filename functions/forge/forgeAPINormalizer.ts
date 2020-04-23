@@ -12,6 +12,18 @@ export interface forgeProject {
     inHub: string;
 }
 
+export interface forgeFolder {
+    id: string;
+    name: string;
+    displayName: string;
+    createUserName: string;
+    createUserId: string;
+    hidden: boolean;
+    lastModifiedUserId: string;
+    lastModifiedUserName: string;
+    inProject?: string;
+}
+
 export class forgeAPINormalizer {
     static parseHubsResponse(r: hubsResponse): forgeHub[] {
         return r.data.map(d => {
@@ -35,5 +47,19 @@ export class forgeAPINormalizer {
             })).reduce((a: Array<any>, b: Array<any>) => a.concat(b))
     }
 
-    
+    static parseFoldersResponse(f: any) {
+        return f.data.map((folder: any) => {
+            return {
+                name: folder.attributes.name,
+                id: folder.id,
+                displayName: folder.attributes.displayName,
+                createUserName: folder.attributes.createUserName,
+                createUserId: folder.attributes.createUserId,
+                hidden: folder.attributes.hidden,
+                lastModifiedUserId: folder.attributes.lastModifiedUserId,
+                lastModifiedUserName: folder.attributes.lastModifiedUserName,
+            }
+        })
+    }
+
 }

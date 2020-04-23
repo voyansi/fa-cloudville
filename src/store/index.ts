@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {forgeAPIWrapper} from '../../functions/forge/forgeAPIWrapper';
-import {forgeAPINormalizer, forgeHub} from '../../functions/forge/forgeAPINormalizer';
+import { forgeAPIWrapper } from '../../functions/forge/forgeAPIWrapper';
+import { forgeAPINormalizer, forgeHub, forgeProject } from '../../functions/forge/forgeAPINormalizer';
 
 // const forgeAPI = new forgeAPIWrapper({
 //   // TODO: add logic to handle env vars in production
@@ -28,46 +28,70 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    hubs:[],
-    projects:[],
-    items: []
+    hubs: [],
+    projects: [],
+    items: [],
+    folders: []
   },
   getters: {
   },
   mutations: {
-    setHubs(state, hubs){
+    setHubs(state, hubs) {
       state.hubs = hubs
     },
-    setProjects(state, projects){
+    setProjects(state, projects) {
       state.projects = projects
+    },
+    setFolders(state, folders){
+      state.folders = folders
+    },
+    setItems(state, items){
+      state.items = items
     }
   },
   actions: {
-    async getToken(){
+    async getToken() {
       return await forge.getToken()
     },
     // load available hubs
-    async loadHubs(store){
+    async loadHubs(store) {
       const hubs = await forge.getHubs();
       const nHubs = forgeAPINormalizer.parseHubsResponse(hubs)
       store.commit('setHubs', nHubs);
     },
     // load available projects in those hubs
-    async loadProjects(store){
-       const hubs = store.state.hubs;
-       const projects = await Promise.all(hubs.map((h: forgeHub) => forge.getProjects(h.id)));
-       console.log(projects)
-       const nProjects = forgeAPINormalizer.parseProjectsResponse(projects)
-       store.commit('setProjects', nProjects)
+    async loadProjects(store) {
+      const hubs = store.state.hubs;
+      const projects = await Promise.all(hubs.map((h: forgeHub) => forge.getProjects(h.id)));
+      const nProjects = forgeAPINormalizer.parseProjectsResponse(projects)
+      store.commit('setProjects', nProjects)
     },
-    async getContents(store, [hubId, projectId]: string[]){
-      
+    async loadTopFolders(store) {
+      const projects = store.state.projects;
+      const folders = await (await Promise.all(
+          projects.map(
+            (m: forgeProject) => forge.getProjectTopFolder(m.inHub)(m.id)
+            )))
+            .reduce(arrayConcat)
+      const nFolders = forgeAPINormalizer.parseFoldersResponse(folders)
+      store.commit('setFolders', nFolders);
     },
-    async loadData({dispatch}){
+    async getContents(store) {
+      const project = 'b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15'
+      const folder = 'urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw'
+      const contents = await forge.getProjectContents(project)(folder)
+      store.commit('setItems', contents)
+      // return contents
+    },
+    async loadData({ dispatch }) {
       await dispatch('loadHubs')
       await dispatch('loadProjects')
+      await dispatch('loadTopFolders')
+      await dispatch('getContents')
     }
   },
   modules: {
   }
 })
+
+const arrayConcat = (a: any[], b: any[]) => a.concat(b)

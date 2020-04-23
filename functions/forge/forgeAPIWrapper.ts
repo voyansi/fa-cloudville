@@ -63,7 +63,6 @@ export class forgeAPIWrapper {
 
     getToken = async (): Promise<forgeAuthToken | undefined> => {
         try {
-                console.log(this.auth)
             if (this.auth.isAuthenticated()) {
                 return await this.auth.getToken();
             } else {
@@ -163,4 +162,47 @@ export class forgeAPIWrapper {
         }
     }
 
+    getItemTip = (projectId: string) => async (itemId: string) => {
+        try {
+            const t = await this.getToken()
+            //@ts-ignore
+            const token = t.access_token;
+            const url = `${forgeAPIWrapper.urlRoot}/data/v1/projects/${projectId}/items/${itemId}/tip`
+
+            const response = await axios({
+                method: 'get',
+                url,
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                    'Accept': '*/*'
+                }
+            })
+
+            return response.data
+        } catch (error) {
+            throw error
+        }
+    }
+
+    getDerivativeManifest = async (derivativeId: string) => {
+        try {
+            const t = await this.getToken()
+            //@ts-ignore
+            const token = t.access_token;
+            const url = `${forgeAPIWrapper.urlRoot}/modelderivative/v2/designdata/${derivativeId}/manifest`
+
+            const response = await axios({
+                method: 'get',
+                url,
+                headers: {
+                    'Authorization': `Bearer ` + token,
+                    'Accept': '*/*'
+                }
+            })
+
+            return response.data
+        } catch (error) {
+            throw error
+        }
+    }
 }
