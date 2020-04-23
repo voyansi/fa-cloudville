@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { forgeAPIWrapper } from '../../functions/forge/forgeAPIWrapper';
 import { forgeAPINormalizer, forgeHub, forgeProject } from '../../functions/forge/forgeAPINormalizer';
+import * as R from 'ramda'
 
 // const forgeAPI = new forgeAPIWrapper({
 //   // TODO: add logic to handle env vars in production
@@ -33,11 +34,38 @@ export default new Vuex.Store({
     projects: [],
     items: [],
     folders: [],
-    elements: []
+    elements: [],
+    uiFilteredElements: []
   },
   getters: {
+    selectedIds: (state) => {
+      return state.uiFilteredElements.map((e:any) => e.Id)
+    },
+    unselectedIds: (state, getters) => {
+      // return state.elements.map((e:any) => e.Id)
+      return R.difference(state.elements.map((e:any) => e.Id), getters.selectedIds)
+    },
+    
     elementsByFilter: (state) => (filter: any) => {
       return state.elements.filter(filter)
+    },
+    filteredElements: (state) => {
+      const parameters = ['Etapa', 'Sector', 'Renglon', 'Tramo', 'Manzana', 'Parcela']
+      const customAttrFilter = (e: any) => R.intersection(R.keys(e), parameters).length > 0
+      const categories = ['Revit Doors',
+        'Revit Walls',
+        'Revit Roofs',
+        'Revit Windows',
+        'Revit Stairs',
+        'Revit Gutters',
+        'Revit Plumbing Fixtures',
+        'Revit Structural Framing',
+        'Revit Strutural Columns',
+        'Revit Railings']
+      const categoriesFilter = (e: any) => categories.includes(e.Category)
+
+      return state.elements.filter(customAttrFilter)
+        .filter(categoriesFilter)
     }
   },
   mutations: {
@@ -47,14 +75,17 @@ export default new Vuex.Store({
     setProjects(state, projects) {
       state.projects = projects
     },
-    setFolders(state, folders){
+    setFolders(state, folders) {
       state.folders = folders
     },
-    setItems(state, items){
+    setItems(state, items) {
       state.items = items
     },
-    setElements(state, elements){
+    setElements(state, elements) {
       state.elements = elements
+    },
+    setUIElements(state, filter) {
+      state.uiFilteredElements = filter(state.elements)
     }
   },
   actions: {
@@ -77,10 +108,10 @@ export default new Vuex.Store({
     async loadTopFolders(store) {
       const projects = store.state.projects;
       const folders = await (await Promise.all(
-          projects.map(
-            (m: forgeProject) => forge.getProjectTopFolder(m.inHub)(m.id)
-            )))
-            .reduce(arrayConcat)
+        projects.map(
+          (m: forgeProject) => forge.getProjectTopFolder(m.inHub)(m.id)
+        )))
+        .reduce(arrayConcat)
       const nFolders = forgeAPINormalizer.parseFoldersResponse(folders)
       store.commit('setFolders', nFolders);
     },
@@ -97,8 +128,11 @@ export default new Vuex.Store({
       await dispatch('loadTopFolders')
       await dispatch('getContents')
     },
-    async loadModelElements(store, elements){
-      store.commit('setElements', elements); 
+    async loadModelElements(store, elements) {
+      store.commit('setElements', elements);
+    },
+    async updateUIFilterElements(store, filter) {
+      store.commit('setUIElements', filter)
     }
   },
   modules: {

@@ -1,18 +1,15 @@
 <template>
   <div>
-    <div class="content">
-      <ol>
-        <li v-for="t in types" :key="t">{{t}}</li>
-        
-      </ol>
-      </div>
-    <!-- <div v-for="e in elements" :key="e.id">
-      <div class="content is-small is-left-aligned">
-        <ol>
-          <li v-for="(value, key) in e" :key="key">{{key}}: {{value}}</li>
-        </ol>
-      </div>
-    </div> -->
+    <!-- <div class="block">
+      <b-radio v-for="c in categories" :key="c" 
+        :native-value="c"
+        v-model="selectedCategory">{{c}}</b-radio>
+    </div>-->
+    <div v-for="e in elements" :key="e.id">
+      <a class="content is-small is-left-aligned">
+        {{e.name}}
+      </a>
+    </div>
   </div>
 </template>
 
@@ -23,15 +20,24 @@ const R = require("ramda");
 
 @Component
 export default class ElementTable extends Vue {
-  get elements() {
-    const categories = []
-    return this.$store.getters.elementsByFilter(R.identity).map(Object.keys)
-    // return this.$store.getters.elementsByFilter((e: any) => e.Category == 'Revit Walls');
-    
+  data() {
+    return {
+      selectedCategory: "Revit Document"
+    };
   }
 
-  get types() {
-    return R.uniq(R.flatten(this.elements))
+
+  get elements() {
+    return this.$store.state.uiFilteredElements;
+  }
+
+  get filteredElements() {
+    //@ts-ignore
+    return this.elements.filter(e => e.Category === this.selectedCategory);
+  }
+
+  get categories() {
+    return R.uniq(this.elements.map((e: any) => e.Category));
   }
 }
 </script>

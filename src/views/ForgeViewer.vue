@@ -1,5 +1,8 @@
 <template>
   <div class="">
+    <div>
+      <a @click="selectElements"  class="button">select elements</a>
+    </div>
     <div id="forge-viewer"></div>
   </div>
 </template>
@@ -7,6 +10,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { Watch } from 'vue-property-decorator';
 const R = require("ramda");
 const base64 = require("base-64");
 
@@ -24,6 +28,27 @@ export default class ForgeViewer extends ViewerProps {
     };
   }
 
+  get elements(){
+    //@ts-ignore
+    return this.$store.getters.selectedIds
+  }
+
+  get unselected(){
+    //@ts-ignore
+    return this.$store.getters.unSelectedIds
+  }
+  
+  selectElements(){
+    console.log('call')
+    //@ts-ignore
+    this.viewer.select(this.elements, Autodesk.Viewing.SelectionMode.REGULAR)
+
+    //@ts-ignore
+    this.viewer.fitToView(this.elements)
+
+  }
+
+  
   async mounted() {
     const token = await this.$store.dispatch("getToken");
     const target =
@@ -77,6 +102,8 @@ export default class ForgeViewer extends ViewerProps {
   onDocumentLoadFailure(error: any) {
     console.log(error);
   }
+
+  // @Watch(path: )
 }
 
 //TODO: move into wrapper
@@ -109,6 +136,7 @@ function userFunction(pdb: any) {
       //assign value to the key in the element
       element[attributeName] = attributeValue;
     });
+    element['Id'] = dbId;
     // add element to the array
     elements.push(element);
   });
