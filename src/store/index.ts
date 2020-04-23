@@ -15,6 +15,7 @@ import { forgeAPINormalizer, forgeHub, forgeProject } from '../../functions/forg
 //   scopes: encodeURI('data:read')
 // })
 
+
 const forge = forgeAPIWrapper.withTwoLeggedAuth({
   clientId: process.env.VUE_APP_CLIENT_ID,
   clientSecret: process.env.VUE_APP_CLIENT_SECRET,

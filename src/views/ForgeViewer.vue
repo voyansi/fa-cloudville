@@ -58,11 +58,12 @@ export default class ForgeViewer extends ViewerProps {
     console.log(error);
   }
 
-  async getHubs() {
-    await this.$store.dispatch("loadData");
-  }
+  // async getHubs() {
+  //   await this.$store.dispatch("loadData");
+  // }
 }
 </script>
 
 <style scoped>
+
 </style>
