@@ -26,16 +26,24 @@ export default class ForgeViewer extends ViewerProps {
   async mounted() {
     const token = await this.$store.dispatch("getToken");
     const target =
-      "urn:adsk.viewing:fs.file:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLlFmNEFhTXdjUTJxU2lFWVpIU25jUEE_dmVyc2lvbj0y/output/Resource/3D View/3D/3D.svf";
+      "urn:dXJuOmFkc2sud2lwcHJvZDpmcy5maWxlOnZmLkZmWGFrc2ZXUlVhMERPRGR2SkN6cWc_dmVyc2lvbj0y";
 
     const options = {
       env: "AutodeskProduction",
       accessToken: token.access_token
     };
 
-    console.log(options)
-    const documentId = base64.encode(target)
+    const documentId = base64.encode(target);
+
     Autodesk.Viewing.Initializer(options, () => {
+      //@ts-ignore
+      this.viewer = new Autodesk.Viewing.GuiViewer3D(
+        document.getElementById("forge-viewer"),
+        { extensions: ["Autodesk.DocumentBrowser"] }
+      );
+      //@ts-ignore
+      this.viewer.start();
+      var documentId = target;
       Autodesk.Viewing.Document.load(
         documentId,
         this.onDocumentLoadSuccess,
@@ -45,8 +53,13 @@ export default class ForgeViewer extends ViewerProps {
   }
 
   onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
-    console.log("success");
-    console.log(doc);
+    // console.log("success");
+    // console.log(doc);
+    var viewables = doc.getRoot().getDefaultGeometry();
+    //@ts-ignore
+    this.viewer.loadDocumentNode(doc, viewables).then(i => {
+      // documented loaded, any action?
+    });
   }
 
   onDocumentLoadFailure(error: any) {
