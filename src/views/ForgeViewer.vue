@@ -1,8 +1,5 @@
 <template>
-  <div class>
-    <div>
-      <a @click="selectElements" class="button">select elements</a>
-    </div>
+  <div id="forge-viewer-container">
     <div id="forge-viewer"></div>
   </div>
 </template>
@@ -38,22 +35,28 @@ export default class ForgeViewer extends ViewerProps {
     return this.$store.getters.unselectedIds;
   }
 
-  highlightElements(elements: number[]){
+  highlightElements(elements: number[]) {
     //@ts-ignore
     this.viewer.select(elements, Autodesk.Viewing.SelectionMode.REGULAR);
     //@ts-ignore
-    this.viewer.select([])
+    this.viewer.select([]);
     this.isolate(elements);
+    //@ts-ignore
     this.viewer.fitToView(elements);
   }
 
+
+  @Watch("elements")
   selectElements() {
-    this.highlightElements(this.elements)
+    this.highlightElements(this.elements);
   }
 
   isolate(elements: number[]) {
+    //@ts-ignore
     const model = this.viewer.getVisibleModels()[0];
+    //@ts-ignore
     this.viewer.impl.visibilityManager.isolate(elements, model);
+    //@ts-ignore
     const DBids = this.viewer.impl.selector.getAggregateSelection();
   }
 
@@ -114,7 +117,6 @@ export default class ForgeViewer extends ViewerProps {
     console.log(error);
   }
 
-  // @Watch(path: )
 }
 
 //TODO: move into wrapper
@@ -158,11 +160,15 @@ function userFunction(pdb: any) {
 <style>
 #forge-viewer {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 300px;
 }
 #guiviewer3d-toolbar {
   visibility: hidden;
+}
+
+#forge-viewer-container {
+  height: 300px;
 }
 .viewcubeWrapper {
   visibility: hidden;

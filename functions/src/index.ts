@@ -18,11 +18,21 @@ const faw = forgeAPIWrapper.withTwoLeggedAuth({
 export const fetchToken = functions.https.onRequest(async (request, response) => {
     try {
         const token = await faw.getToken()
+        response.set('Access-Control-Allow-Origin', '*');
         response.send(token)
     } catch (error) {
         response.send(error)
     }
 })
+
+// export const fetchForgeToken = functions.https.onCall(async (data, context) => {
+//     try {
+//         const token = await faw.getToken()
+//         return token
+//     } catch (error) {
+//         throw error
+//     }
+// })
 
 export const getHubs = functions.https.onRequest(async (reqest, response) => {
     try {
@@ -58,14 +68,14 @@ export const getTopFolder = functions.https.onRequest(async (request, response) 
 })
 
 export const getContents = functions.https.onRequest(async (request, response) => {
-    const faw = forgeAPIWrapper.withTwoLeggedAuth({
+    const fawe = forgeAPIWrapper.withTwoLeggedAuth({
         //@ts-ignore
         clientId: functions.config().forgeapi.client_id,
         clientSecret: functions.config().forgeapi.client_secret,
         scope: 'data:read data:write data:create account:read account:write'
     })
     try {
-        const contents = await faw.getProjectContents('b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15')('urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw')
+        const contents = await fawe.getProjectContents('b.7e8d1b7d-47bd-4606-b8b8-094e8de86f15')('urn:adsk.wipprod:fs.folder:co.d9PTVReaTBOIVKmj9vhcbw')
         response.send(contents)
     } catch (error) {
         response.send(error)

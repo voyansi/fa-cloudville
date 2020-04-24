@@ -1,15 +1,10 @@
 <template>
   <div class="">
-    <div class="columns">
-      <div class="column is-5">
-        <forge-menu></forge-menu>
-        <element-table></element-table>
-      </div>
-      <div class="column">
-        <!-- <debug-view></debug-view> -->
+    <div class="">
         <forge-viewer></forge-viewer>
-      </div>
-      
+    </div>
+    <div class="">
+        <element-table></element-table>
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { forgeAPIWrapper } from '../../functions/forge/forgeAPIWrapper';
 import { forgeAPINormalizer, forgeHub, forgeProject } from '../../functions/forge/forgeAPINormalizer';
+import axios from 'axios'
 import * as R from 'ramda'
 
 // const forgeAPI = new forgeAPIWrapper({
@@ -35,17 +36,18 @@ export default new Vuex.Store({
     items: [],
     folders: [],
     elements: [],
-    uiFilteredElements: []
+    uiFilteredElements: [],
+    selectedParcela: ''
   },
   getters: {
     selectedIds: (state) => {
-      return state.uiFilteredElements.map((e:any) => e.Id)
+      return state.uiFilteredElements
     },
     unselectedIds: (state, getters) => {
       // return state.elements.map((e:any) => e.Id)
-      return R.difference(state.elements.map((e:any) => e.Id), getters.selectedIds)
+      return R.difference(state.elements.map((e: any) => e.Id), getters.selectedIds)
     },
-    
+
     elementsByFilter: (state) => (filter: any) => {
       return state.elements.filter(filter)
     },
@@ -84,13 +86,21 @@ export default new Vuex.Store({
     setElements(state, elements) {
       state.elements = elements
     },
-    setUIElements(state, filter) {
-      state.uiFilteredElements = filter(state.elements)
+    setUIElements(state, elements) {
+      state.uiFilteredElements = elements
+    },
+    selectParcela(state, p) {
+      state.selectedParcela = p;
     }
   },
   actions: {
     async getToken() {
-      return await forge.getToken()
+      if (process.env.NODE_ENV === 'development') {
+        return await forge.getToken()
+      } else {
+        // @ts-ignore
+        return await axios.get('https://us-central1-fa-apm.cloudfunctions.net/fetchToken', { crossdomain: true })
+      }
     },
     // load available hubs
     async loadHubs(store) {
@@ -131,8 +141,11 @@ export default new Vuex.Store({
     async loadModelElements(store, elements) {
       store.commit('setElements', elements);
     },
-    async updateUIFilterElements(store, filter) {
-      store.commit('setUIElements', filter)
+    async updateUIFilterElements(store, elements) {
+      store.commit('setUIElements', elements)
+    },
+    async selectParcela(store, id) {
+      store.commit('selectParcela', id)
     }
   },
   modules: {

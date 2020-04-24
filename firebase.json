@@ -11,6 +11,17 @@
   },
   "hosting": {
     "public": "dist",
+    "headers": [
+      {
+        "source": "index.html",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          }
+        ]
+      }
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",

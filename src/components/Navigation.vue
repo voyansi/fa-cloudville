@@ -10,11 +10,6 @@
         </template>
            <template slot="end">
             <b-navbar-item tag="div">
-                <div class="buttons">
-                    <a @click="login" class="button is-light">
-                        Log in
-                    </a>
-                </div>
             </b-navbar-item>
         </template>
     </b-navbar>   
@@ -28,9 +23,8 @@ import { forgeAPIWrapper } from '../../functions/forge/forgeAPIWrapper';
 export default class Navigation extends Vue {
   @Prop() private msg!: string;
 
-  async login(){
-      const contents = await this.$store.dispatch('getContents')
-      console.log(contents)
+  async reset(){
+    this.$store.dispatch("updateUIFilterElements", []);
   }
 }
 </script>

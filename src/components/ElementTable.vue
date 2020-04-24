@@ -1,43 +1,111 @@
 <template>
-  <div>
-    <!-- <div class="block">
-      <b-radio v-for="c in categories" :key="c" 
-        :native-value="c"
-        v-model="selectedCategory">{{c}}</b-radio>
-    </div>-->
-    <div v-for="e in elements" :key="e.id">
-      <a class="content is-small is-left-aligned">
-        {{e.name}}
-      </a>
-    </div>
-  </div>
+  <section class>
+    <section class="buttons is-info">
+      <a @click="reset" class="button is-light">Reset</a>
+    </section>
+    <b-table
+      :per-page="300"
+      :paginated="true"
+      :data="elements"
+      :checked-rows.sync="checkedRows"
+      checkable
+      :columns="columns"
+    ></b-table>
+  </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
 const R = require("ramda");
+//@ts-ignore
+import * as d3 from "d3";
+import { Watch } from "vue-property-decorator";
 
 @Component
 export default class ElementTable extends Vue {
   data() {
     return {
-      selectedCategory: "Revit Document"
+      selectedCategory: "Revit Document",
+      isOpen: 0,
+      phaseMap: {
+        Doors: "Revit Doors",
+        Railings: "Revit Railings",
+        Walls: "Revit Walls",
+        Roofs: "Revit Roofs",
+        Plumbing: "Revit Plumbing",
+        Fixtures: "Revit Fixtures"
+      },
+      checkedRows: [],
+      columns: [
+        {
+          field: "Id",
+          label: "Id",
+          width: "100",
+          numeric: true,
+          searchable: true
+        },
+        {
+          field: "name",
+          label: "Name",
+          searchable: true
+        },
+        {
+          field: "Category",
+          label: "Category",
+          sortable: true,
+          searchable: true
+        },
+        {
+          field: "Etapa",
+          label: "Etapa",
+          sortable: true,
+          searchable: true
+        },
+        {
+          field: "Manzana",
+          label: "Manzana",
+          sortable: true,
+          searchable: true
+        },
+        {
+          field: "Parcela",
+          label: "Parcela",
+          sortable: true,
+          searchable: true
+        }
+      ]
     };
   }
 
-
   get elements() {
-    return this.$store.state.uiFilteredElements;
+    return this.$store.getters.filteredElements;
   }
 
-  get filteredElements() {
+  filterBySelected(e: any) {
     //@ts-ignore
-    return this.elements.filter(e => e.Category === this.selectedCategory);
+    const selectedIds = this.checkedRows.map(d => d.Id).includes(e.Id);
+    return;
   }
 
-  get categories() {
-    return R.uniq(this.elements.map((e: any) => e.Category));
+  get selectedIds() {
+    return this.$store.getters.selectedIds;
+  }
+
+  reset(){
+    //@ts-ignore
+    this.checkedRows = []
+    this.$store.dispatch("updateUIFilterElements", [])
+  }
+
+  @Watch("checkedRows")
+  updateFilters() {
+    //@ts-ignore
+    this.$store.dispatch(
+      "updateUIFilterElements",
+      //@ts-ignore
+      this.checkedRows.map(d => d.Id)
+    );
   }
 }
 </script>

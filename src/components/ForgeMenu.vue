@@ -39,17 +39,7 @@
           <span>{{s}}</span>
         </b-dropdown-item>
       </b-dropdown>
-
-      <!-- <b-dropdown v-model="parcelas" multiple aria-role="list">
-        <button class="button is-primary" type="button" slot="trigger">
-          <span>parcela ({{ parcelas.length }}/ {{parcela.length}})</span>
-          <b-icon icon="menu-down"></b-icon>
-        </button>
-
-        <b-dropdown-item v-for="s in parcela" :value="s" :key="s" aria-role="listitem">
-          <span>{{s}}</span>
-        </b-dropdown-item>
-      </b-dropdown>-->
+      
     </div>
   </section>
 </template>
