@@ -99,7 +99,8 @@ export default new Vuex.Store({
         return await forge.getToken()
       } else {
         // @ts-ignore
-        return await axios.get('https://us-central1-fa-apm.cloudfunctions.net/fetchToken', { crossdomain: true })
+        const response = await axios.get('https://us-central1-fa-apm.cloudfunctions.net/fetchToken')
+        return response.data
       }
     },
     // load available hubs

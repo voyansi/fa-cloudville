@@ -70,6 +70,8 @@ export default class ForgeViewer extends ViewerProps {
       accessToken: token.access_token
     };
 
+    console.log(options)
+
     const documentId = base64.encode(target);
 
     Autodesk.Viewing.Initializer(options, () => {
@@ -105,6 +107,7 @@ export default class ForgeViewer extends ViewerProps {
       //@ts-ignore
       const property = await this.viewer.model
         .getPropertyDb()
+        //@ts-ignore
         .executeUserFunction(userFunction);
 
       //settings
@@ -122,39 +125,39 @@ export default class ForgeViewer extends ViewerProps {
 //TODO: move into wrapper
 // https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/advanced_options/propdb-queries/
 // FUNCTION HAS TO BE NAMED USERFUNCTION
-function userFunction(pdb: any) {
-  const attributes: any = [];
-  pdb.enumAttributes((index: number, attrDef: any, attrRaw: any) => {
-    attributes.push({
-      index,
-      attrDef,
-      attrRaw
-    });
-  });
+// function userFunction(pdb: any) {
+//   const attributes: any = [];
+//   pdb.enumAttributes((index: number, attrDef: any, attrRaw: any) => {
+//     attributes.push({
+//       index,
+//       attrDef,
+//       attrRaw
+//     });
+//   });
 
-  const elements: any[] = [];
-  //enumerate through all the objects
-  pdb.enumObjects((dbId: number) => {
-    // create a blank element
-    const element: any = {};
-    //enumerate through the map of the object properties
-    pdb.enumObjectProperties(dbId, (attrId: any, valId: any) => {
-      //TODO: types
-      // find the attribute who's index matches the attrId of the object property
-      const attributeName = attributes.find((e: any) => e.index === attrId) //then retrive the name from the attribute definition
-        .attrDef["name"];
-      //then find the value through pdb query
-      const attributeValue = pdb.getAttrValue(attrId, valId);
-      //assign value to the key in the element
-      element[attributeName] = attributeValue;
-    });
-    element["Id"] = dbId;
-    // add element to the array
-    elements.push(element);
-  });
+//   const elements: any[] = [];
+//   //enumerate through all the objects
+//   pdb.enumObjects((dbId: number) => {
+//     // create a blank element
+//     const element: any = {};
+//     //enumerate through the map of the object properties
+//     pdb.enumObjectProperties(dbId, (attrId: any, valId: any) => {
+//       //TODO: types
+//       // find the attribute who's index matches the attrId of the object property
+//       const attributeName = attributes.find((e: any) => e.index === attrId) //then retrive the name from the attribute definition
+//         .attrDef["name"];
+//       //then find the value through pdb query
+//       const attributeValue = pdb.getAttrValue(attrId, valId);
+//       //assign value to the key in the element
+//       element[attributeName] = attributeValue;
+//     });
+//     element["Id"] = dbId;
+//     // add element to the array
+//     elements.push(element);
+//   });
 
-  return elements;
-}
+//   return elements;
+// }
 </script>
 
 <style>

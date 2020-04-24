@@ -42,7 +42,6 @@ export default class ElementTable extends Vue {
           field: "Id",
           label: "Id",
           width: "100",
-          numeric: true,
           searchable: true
         },
         {
