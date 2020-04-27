@@ -1,10 +1,12 @@
 <template>
     <b-navbar>
         <template slot="brand">
-            <b-navbar-item tag="router-link" :to="{ path: '/' }">
+            <b-navbar-item>
+            <a href="https://aeclab.tech" target="_blank">
                 <img
                     src="@/assets/logo.png"
                 >
+            </a>
             </b-navbar-item>
 
         </template>
