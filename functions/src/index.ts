@@ -3,7 +3,7 @@ const querystring = require('querystring');
 import axios from 'axios'
 const cors = require('cors')({ origin: true });
 
-export const fetchToken = functions.https.onRequest(async (request, response) => {
+export const fetchToken = functions.https.onCall(async (request, response) => {
     
     const url = 'https://developer.api.autodesk.com/authentication/v1/authenticate'
     const client_id = functions.config().forge.client_id
