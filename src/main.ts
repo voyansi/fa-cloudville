@@ -10,8 +10,6 @@ import '@fortawesome/fontawesome-free/css/fontawesome.css'
 
 Vue.use(Buefy, { defaultIconPack: 'fas' })
 
-import { forgeAPIWrapper } from '../functions/forge/forgeAPIWrapper'
-
 Vue.config.productionTip = false
 
 
