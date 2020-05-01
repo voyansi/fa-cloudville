@@ -5,8 +5,6 @@ import * as R from 'ramda'
 
 Vue.use(Vuex)
 
-
-
 export default new Vuex.Store({
   state: {
     elements: [],
@@ -24,13 +22,14 @@ export default new Vuex.Store({
       return R.uniq(state.elements.map((e: any) => e.Category))
     },
     parcelas: (state, getters) => {
-      return R.uniq(getters.filteredElements.map((e: any) => `${e.Manzana}-${e.Parcela}`)).filter((v: any) => { return v ? v !== '-': false})
+      return R.uniq(getters.filteredElements.map((e: any) => `${e.Manzana}-${e.Parcela}`)).filter((v: any) => { return v ? v !== '-' : false })
     },
     filteredElements: (state) => {
       const parameters = ['Etapa', 'Sector', 'Renglon', 'Tramo', 'Manzana', 'Parcela']
       const customAttrFilter = (e: any) => R.intersection(R.keys(e), parameters).length > 0
       const categories =
-        ['Revit Doors',
+        [
+          'Revit Doors',
           'Revit Walls',
           'Revit Roofs',
           'Revit Windows',
@@ -61,6 +60,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /**
+     * fetch an access token from a cloud function
+     */
     async getToken() {
       const response = await axios.get('https://us-central1-fa-apm.cloudfunctions.net/fetchToken')
       return response.data
@@ -74,7 +76,7 @@ export default new Vuex.Store({
     async selectParcela(store, name) {
       store.commit('selectParcela', name)
       const [manzana, parcela] = name.split('-')
-      const elements  = store.getters.filteredElements.filter((e:any) =>{
+      const elements = store.getters.filteredElements.filter((e: any) => {
         return e.Manzana === manzana && e.Parcela === parcela
       }).map(R.prop('Id'))
       store.commit('setUIElements', elements)

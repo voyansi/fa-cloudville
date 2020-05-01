@@ -16,7 +16,7 @@
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
       Please enable it to continue.</strong>
   </noscript>
-  <script>
+  <!-- <script>
     function userFunction(pdb) {
       const attributes = [];
       pdb.enumAttributes((index, attrDef, attrRaw) => {
@@ -50,7 +50,9 @@
 
       return elements;
     }
-  </script>
+  </script> -->
+
+  <script src="./dbQuery.js"></script>
 
   <div id="app"></div>
   <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/7.*/viewer3D.min.js"></script>
