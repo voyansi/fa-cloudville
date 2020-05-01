@@ -3,16 +3,15 @@
     <div class="">
         <forge-viewer></forge-viewer>
     </div>
-    <div class="">
+    <!-- <div class="">
         <element-table></element-table>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import DebugView from './Debug.vue'
 import ForgeMenu from '../components/ForgeMenu.vue'
-import ForgeViewer from '../views/ForgeViewer.vue'
 import ElementTable from '../components/ElementTable.vue'
 
 export default {
@@ -20,7 +19,6 @@ export default {
   components: {
     DebugView,
     ForgeMenu,
-    ForgeViewer,
     ElementTable
   }
 }

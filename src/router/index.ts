@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
+// we actually don't need the router for this example.
 const routes: Array<RouteConfig> = [
   {
     path: '/',
@@ -13,8 +14,7 @@ const routes: Array<RouteConfig> = [
 ]
 
 const router = new VueRouter({
-  routes,
-  mode: 'history'
+  routes
 })
 
 export default router
