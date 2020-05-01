@@ -121,54 +121,17 @@ export default class ForgeViewer extends ViewerProps {
   }
 
 }
-
-//TODO: move into wrapper
-// https://forge.autodesk.com/en/docs/viewer/v7/developers_guide/advanced_options/propdb-queries/
-// FUNCTION HAS TO BE NAMED USERFUNCTION
-// function userFunction(pdb: any) {
-//   const attributes: any = [];
-//   pdb.enumAttributes((index: number, attrDef: any, attrRaw: any) => {
-//     attributes.push({
-//       index,
-//       attrDef,
-//       attrRaw
-//     });
-//   });
-
-//   const elements: any[] = [];
-//   //enumerate through all the objects
-//   pdb.enumObjects((dbId: number) => {
-//     // create a blank element
-//     const element: any = {};
-//     //enumerate through the map of the object properties
-//     pdb.enumObjectProperties(dbId, (attrId: any, valId: any) => {
-//       //TODO: types
-//       // find the attribute who's index matches the attrId of the object property
-//       const attributeName = attributes.find((e: any) => e.index === attrId) //then retrive the name from the attribute definition
-//         .attrDef["name"];
-//       //then find the value through pdb query
-//       const attributeValue = pdb.getAttrValue(attrId, valId);
-//       //assign value to the key in the element
-//       element[attributeName] = attributeValue;
-//     });
-//     element["Id"] = dbId;
-//     // add element to the array
-//     elements.push(element);
-//   });
-
-//   return elements;
-// }
 </script>
 
 <style>
 #forge-viewer {
   position: absolute;
   width: 100%;
-  height: 300px;
+  height: 500px;
 }
-#guiviewer3d-toolbar {
+/* #guiviewer3d-toolbar {
   visibility: hidden;
-}
+} */
 
 #forge-viewer-container {
   height: 300px;

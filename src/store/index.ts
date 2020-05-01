@@ -21,23 +21,29 @@ export default new Vuex.Store({
       // return state.elements.map((e:any) => e.Id)
       return R.difference(state.elements.map((e: any) => e.Id), getters.selectedIds)
     },
-
-    elementsByFilter: (state) => (filter: any) => {
-      return state.elements.filter(filter)
+    uniqueCategories: (state) => {
+      return R.uniq(state.elements.map((e:any) => e.Category))
+    },
+    parcelas: (state, getters) => {
+      return R.uniq(getters.filteredElements.map((e:any) => `${e.Manzana}-${e.Parcela}`)).filter((v:string) => v !== '-')
     },
     filteredElements: (state) => {
       const parameters = ['Etapa', 'Sector', 'Renglon', 'Tramo', 'Manzana', 'Parcela']
       const customAttrFilter = (e: any) => R.intersection(R.keys(e), parameters).length > 0
-      const categories = ['Revit Doors',
-        'Revit Walls',
-        'Revit Roofs',
-        'Revit Windows',
-        'Revit Stairs',
-        'Revit Gutters',
-        'Revit Plumbing Fixtures',
-        'Revit Structural Framing',
-        'Revit Strutural Columns',
-        'Revit Railings']
+      const categories =
+        ['Revit Doors',
+          'Revit Walls',
+          'Revit Roofs',
+          'Revit Windows',
+          'Revit Stairs',
+          'Revit Gutters',
+          'Revit Plumbing Fixtures',
+          'Revit Structural Framing',
+          'Revit Strutural Columns',
+          'Revit Landings',
+          'Revit Railings',
+          "Revit Generic Models",
+        ]
       const categoriesFilter = (e: any) => categories.includes(e.Category)
 
       return state.elements.filter(customAttrFilter)
