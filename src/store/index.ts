@@ -18,14 +18,13 @@ export default new Vuex.Store({
       return state.uiFilteredElements
     },
     unselectedIds: (state, getters) => {
-      // return state.elements.map((e:any) => e.Id)
       return R.difference(state.elements.map((e: any) => e.Id), getters.selectedIds)
     },
     uniqueCategories: (state) => {
-      return R.uniq(state.elements.map((e:any) => e.Category))
+      return R.uniq(state.elements.map((e: any) => e.Category))
     },
     parcelas: (state, getters) => {
-      return R.uniq(getters.filteredElements.map((e:any) => `${e.Manzana}-${e.Parcela}`)).filter((v:string) => v !== '-')
+      return R.uniq(getters.filteredElements.map((e: any) => `${e.Manzana}-${e.Parcela}`)).filter((v: any) => { return v ? v !== '-': false})
     },
     filteredElements: (state) => {
       const parameters = ['Etapa', 'Sector', 'Renglon', 'Tramo', 'Manzana', 'Parcela']
@@ -72,8 +71,13 @@ export default new Vuex.Store({
     async updateUIFilterElements(store, elements) {
       store.commit('setUIElements', elements)
     },
-    async selectParcela(store, id) {
-      store.commit('selectParcela', id)
+    async selectParcela(store, name) {
+      store.commit('selectParcela', name)
+      const [manzana, parcela] = name.split('-')
+      const elements  = store.getters.filteredElements.filter((e:any) =>{
+        return e.Manzana === manzana && e.Parcela === parcela
+      }).map(R.prop('Id'))
+      store.commit('setUIElements', elements)
     }
   }
 })

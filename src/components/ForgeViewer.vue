@@ -84,10 +84,6 @@ export default class ForgeViewer extends ViewerProps {
       //@ts-ignore
       this.viewer.start();
       var documentId = target;
-      // "urn:" +
-      // base64.encode(
-      //   "urn:adsk.wipprod:fs.file:vf.Qf4AaMwcQ2qSiEYZHSncPA?version=2"
-      // );
 
       Autodesk.Viewing.Document.load(
         documentId,
@@ -98,8 +94,6 @@ export default class ForgeViewer extends ViewerProps {
   }
 
   onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
-    // console.log("success");
-    // console.log(doc);
     var viewables = doc.getRoot().getDefaultGeometry();
     //@ts-ignore
     this.viewer.loadDocumentNode(doc, viewables).then(async i => {
@@ -129,12 +123,12 @@ export default class ForgeViewer extends ViewerProps {
   width: 100%;
   height: 500px;
 }
-/* #guiviewer3d-toolbar {
+#guiviewer3d-toolbar {
   visibility: hidden;
-} */
+}
 
 #forge-viewer-container {
-  height: 300px;
+  height: 500px;
 }
 .viewcubeWrapper {
   visibility: hidden;
