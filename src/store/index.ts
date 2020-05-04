@@ -7,7 +7,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // elements are the total elements in the model
     elements: [],
+    // 
     uiFilteredElements: [],
     selectedParcela: ''
   },
@@ -24,6 +26,8 @@ export default new Vuex.Store({
     parcelas: (state, getters) => {
       return R.uniq(getters.filteredElements.map((e: any) => `${e.Manzana}-${e.Parcela}`)).filter((v: any) => { return v ? v !== '-' : false })
     },
+    // not all elements should be open to selection
+    // we filter to the elements with the parameters we need
     filteredElements: (state) => {
       const parameters = ['Etapa', 'Sector', 'Renglon', 'Tramo', 'Manzana', 'Parcela']
       const customAttrFilter = (e: any) => R.intersection(R.keys(e), parameters).length > 0
@@ -43,7 +47,6 @@ export default new Vuex.Store({
           "Revit Generic Models",
         ]
       const categoriesFilter = (e: any) => categories.includes(e.Category)
-
       return state.elements.filter(customAttrFilter)
         .filter(categoriesFilter)
     }
