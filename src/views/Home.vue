@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="">
+    <div class="">
+        <forge-viewer></forge-viewer>
+    </div>
+    <div class="">
+        <element-table></element-table>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import DebugView from './Debug.vue'
+import ForgeMenu from '../components/ForgeMenu.vue'
+import ForgeViewer from '../views/ForgeViewer.vue'
+import ElementTable from '../components/ElementTable.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    DebugView,
+    ForgeMenu,
+    ForgeViewer,
+    ElementTable
   }
 }
 </script>

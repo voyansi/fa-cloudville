@@ -14,8 +14,16 @@ yarn-error.log*
 # Editor directories and files
 .idea
 .vscode
+.vs
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase configuration
+firebase-key.json
+.env
+
+# forge configuration
+forgeAppConfig.json

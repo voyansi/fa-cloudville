@@ -6,3 +6,6 @@
 typings/
 
 node_modules/
+
+#nevironment configs
+.runtimeconfig.json
